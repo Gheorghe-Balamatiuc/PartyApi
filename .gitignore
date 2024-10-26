@@ -1,3 +1,35 @@
-obj\Debug\net8.0\
+# Build directories
+obj/Debug/net8.0/
+bin/Debug/net8.0/
+obj/Release/
+bin/Release/
 
-bin\Debug\net8.0\
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Package management
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# IDE specific files
+.vs/
+.vscode/
+
+# Generated files
+*.generated.cs
+*.designer.cs
+*.g.cs
+*.g.i.cs
+
+# Publish output
+publish/
