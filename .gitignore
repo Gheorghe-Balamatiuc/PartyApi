@@ -33,3 +33,15 @@ project.fragment.lock.json
 
 # Publish output
 publish/
+bin/Debug/net8.0/PartyApi.dll
+bin/Debug/net8.0/PartyApi.dll
+bin/Debug/net8.0/PartyApi.dll
+bin/Debug/net8.0/PartyApi.exe
+bin/Debug/net8.0/PartyApi.pdb
+obj/Debug/net8.0/apphost.exe
+obj/Debug/net8.0/PartyApi.AssemblyInfo.cs
+obj/Debug/net8.0/PartyApi.AssemblyInfoInputs.cache
+obj/Debug/net8.0/PartyApi.dll
+obj/Debug/net8.0/PartyApi.pdb
+obj/Debug/net8.0/ref/PartyApi.dll
+obj/Debug/net8.0/refint/PartyApi.dll
