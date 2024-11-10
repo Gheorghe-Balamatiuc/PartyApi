@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyApi.Data;
 
@@ -10,9 +11,11 @@ using PartyApi.Data;
 namespace PartyApi.Migrations
 {
     [DbContext(typeof(PartyContext))]
-    partial class PartyContextModelSnapshot : ModelSnapshot
+    [Migration("20241110192121_DataSeeding")]
+    partial class DataSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace PartyApi.Migrations
 
                     b.HasIndex("PartyId");
 
-                    b.ToTable("Members", (string)null);
+                    b.ToTable("Members");
 
                     b.HasData(
                         new
@@ -94,7 +97,7 @@ namespace PartyApi.Migrations
 
                     b.HasKey("PartyId");
 
-                    b.ToTable("Parties", (string)null);
+                    b.ToTable("Parties");
 
                     b.HasData(
                         new

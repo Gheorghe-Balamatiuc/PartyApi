@@ -11,4 +11,8 @@ public class Member
     public required string FirstName { get; set; }
 
     public required string LastName { get; set; }
+
+    public int PartyId { get; set; }
+
+    public Party Party { get; set; } = null!;
 }

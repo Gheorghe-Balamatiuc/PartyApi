@@ -10,6 +10,20 @@ class PartyConfig : IEntityTypeConfiguration<Party>
     {
         builder.HasKey(p => p.PartyId);
         builder.Property(p => p.PartyName).IsRequired();
-        builder.Property(p => p.Budget).HasColumnType("decimal(17,2)");
+        builder.Property(p => p.Budget).HasColumnType("decimal(18,2)");
+        builder.HasData(
+            new Party
+            {
+                PartyId = 1,
+                PartyName = "Birthday Party",
+                Budget = 1000
+            },
+            new Party
+            {
+                PartyId = 2,
+                PartyName = "Wedding Party",
+                Budget = 5000
+            }
+        );
     }
 }
