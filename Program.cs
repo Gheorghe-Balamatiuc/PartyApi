@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PartyApi.Data;
+using PartyApi.Repository;
+using PartyApi.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<PartyContext>(
     opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
