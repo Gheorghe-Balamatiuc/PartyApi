@@ -12,5 +12,5 @@ public class Party
 
     public decimal Budget { get; set; }
 
-    public IEnumerable<Member> Members { get; } = new List<Member>();
+    public ICollection<Member> Members { get; } = [];
 }

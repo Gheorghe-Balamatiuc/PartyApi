@@ -4,9 +4,6 @@ using PartyApi.Repository.IRepository;
 
 namespace PartyApi.Repository;
 
-class PartyRepository : Repository<Party>, IPartyRepository
+class PartyRepository(PartyContext context) : Repository<Party>(context), IPartyRepository
 {
-    public PartyRepository(PartyContext context) : base(context)
-    {
-    }
 }
