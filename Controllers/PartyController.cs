@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PartyApi.DTOs;
 using PartyApi.Models;
 using PartyApi.Repository.IRepository;
 
@@ -6,16 +8,14 @@ namespace PartyApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PartyController : ControllerBase
+public class PartyController(
+    ILogger<PartyController> logger, 
+    IUnitOfWork unitOfWork,
+    IMapper mapper) : ControllerBase
 {
-    private readonly ILogger<PartyController> _logger;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public PartyController(ILogger<PartyController> logger, IUnitOfWork unitOfWork)
-    {
-        _logger = logger;
-        _unitOfWork = unitOfWork;
-    }
+    private readonly ILogger<PartyController> _logger = logger;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IMapper _mapper = mapper;
 
     [HttpGet]
     public async Task<IActionResult> GetParties() 
@@ -27,27 +27,33 @@ public class PartyController : ControllerBase
             return NotFound();
         }
 
-        return Ok(parties);
+        var partiesDto = _mapper.Map<IEnumerable<PartyDTO>>(parties);
+
+        return Ok(partiesDto);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetParty(int id)
     {
-        var party = await _unitOfWork.PartyRepository.GetByIdAsync(id);
+        var party = await _unitOfWork.PartyRepository.GetPartyWithMembersAsync(id);
 
         if (party == null)
         {
             return NotFound();
         }
 
-        return Ok(party);
+        var partyWithMembersDto = _mapper.Map<PartyWithMembersDTO>(party);
+
+        return Ok(partyWithMembersDto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateParty(Party party)
+    public async Task<IActionResult> CreateParty(PartyNoIdDTO partyNoIdDto)
     {
         if (ModelState.IsValid)
         {
+            var party = _mapper.Map<Party>(partyNoIdDto);
+
             await _unitOfWork.PartyRepository.CreateAsync(party);
             
             return CreatedAtAction(nameof(GetParty), new { id = party.PartyId }, party);
