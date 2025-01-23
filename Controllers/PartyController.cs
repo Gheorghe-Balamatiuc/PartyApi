@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PartyApi.DTOs;
 using PartyApi.Models;
@@ -18,6 +19,7 @@ public class PartyController(
     private readonly IMapper _mapper = mapper;
 
     [HttpGet]
+    [Authorize("read:data")]
     public async Task<IActionResult> GetParties() 
     {
         var parties = await _unitOfWork.PartyRepository.GetAllAsync();
@@ -33,6 +35,7 @@ public class PartyController(
     }
 
     [HttpGet("{id}")]
+    [Authorize("read:data")]
     public async Task<IActionResult> GetParty(int id)
     {
         var party = await _unitOfWork.PartyRepository.GetPartyWithMembersAsync(id);
@@ -48,6 +51,7 @@ public class PartyController(
     }
 
     [HttpPost]
+    [Authorize("modify:data")]
     public async Task<IActionResult> CreateParty(PartyNoIdDTO partyNoIdDto)
     {
         if (ModelState.IsValid)
@@ -63,6 +67,7 @@ public class PartyController(
     }
 
     [HttpPut("{id}")]
+    [Authorize("modify:data")]
     public async Task<IActionResult> UpdateParty(int id, Party party)
     {
         if (id != party.PartyId)
@@ -76,6 +81,7 @@ public class PartyController(
     }
 
     [HttpDelete("{id}")]
+    [Authorize("modify:data")]
     public async Task<IActionResult> DeleteParty(int id)
     {
         var party = await _unitOfWork.PartyRepository.GetByIdAsync(id);
