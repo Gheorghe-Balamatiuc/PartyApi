@@ -26,6 +26,7 @@ public class MemberController(
 
         if (members == null)
         {
+            _logger.LogWarning("Members not found");
             return NotFound();
         }
 
@@ -42,6 +43,7 @@ public class MemberController(
 
         if (member == null)
         {
+            _logger.LogWarning("Member with id {id} not found", id);
             return NotFound();
         }
 
@@ -63,6 +65,8 @@ public class MemberController(
             return CreatedAtAction(nameof(GetMember), new { id = member.MemberId }, member);
         }
 
+        _logger.LogWarning("Member model state is invalid");
+
         return new JsonResult("Something went wrong") { StatusCode = 500 };
     }
 
@@ -72,6 +76,7 @@ public class MemberController(
     {
         if (id != memberDto.MemberId)
         {
+            _logger.LogWarning("Member id {id} does not match member id {memberDto.MemberId}", id, memberDto.MemberId);
             return BadRequest();
         }
 
@@ -79,6 +84,7 @@ public class MemberController(
 
         if (member == null)
         {
+            _logger.LogWarning("Member with id {id} not found", id);
             return NotFound();
         }
 
@@ -97,6 +103,7 @@ public class MemberController(
 
         if (member == null)
         {
+            _logger.LogWarning("Member with id {id} not found", id);
             return NotFound();
         }
 

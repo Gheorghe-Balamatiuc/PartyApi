@@ -26,6 +26,7 @@ public class PartyController(
 
         if (parties == null)
         {
+            _logger.LogWarning("Parties not found");
             return NotFound();
         }
 
@@ -42,6 +43,7 @@ public class PartyController(
 
         if (party == null)
         {
+            _logger.LogWarning("Party with id {id} not found", id);
             return NotFound();
         }
 
@@ -63,6 +65,8 @@ public class PartyController(
             return CreatedAtAction(nameof(GetParty), new { id = party.PartyId }, party);
         }
 
+        _logger.LogWarning("Party model state is invalid");
+
         return new JsonResult("Something went wrong") { StatusCode = 500 };
     }
 
@@ -72,6 +76,7 @@ public class PartyController(
     {
         if (id != party.PartyId)
         {
+            _logger.LogWarning("Party id {id} does not match party id {party.PartyId}", id, party.PartyId);
             return BadRequest();
         }
 
@@ -88,6 +93,7 @@ public class PartyController(
 
         if (party == null)
         {
+            _logger.LogWarning("Party with id {id} not found", id);
             return NotFound();
         }
 

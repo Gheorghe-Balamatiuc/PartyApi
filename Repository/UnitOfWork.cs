@@ -3,9 +3,13 @@ using PartyApi.Repository.IRepository;
 
 namespace PartyApi.Repository;
 
-public class UnitOfWork : IUnitOfWork, IDisposable
+public class UnitOfWork(
+    PartyContext context,
+    ILogger<UnitOfWork> logger
+    ) : IUnitOfWork, IDisposable
 {
-    private readonly PartyContext _context;
+    private readonly PartyContext _context = context;
+    private readonly ILogger<UnitOfWork> _logger = logger;
 
     private IPartyRepository? partyRepository;
     private IMemberRepository? memberRepository;
@@ -14,8 +18,11 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            this.partyRepository ??= new PartyRepository(_context);
-            return this.partyRepository;
+            partyRepository ??= new PartyRepository(
+                _context,
+                _logger
+            );
+            return partyRepository;
         }
     }
 
@@ -23,14 +30,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            this.memberRepository ??= new MemberRepository(_context);
-            return this.memberRepository;
+            memberRepository ??= new MemberRepository(
+                _context,
+                _logger
+            );
+            return memberRepository;
         }
-    }
-
-    public UnitOfWork(PartyContext context)
-    {
-        _context = context;
     }
 
     public async Task CompleteAsync()
@@ -42,14 +47,14 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this.disposed)
+        if (!disposed)
         {
             if (disposing)
             {
                 _context.Dispose();
             }
         }
-        this.disposed = true;
+        disposed = true;
     }
 
     public void Dispose()
