@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using PartyApi.Data;
 using PartyApi.Models;
 using PartyApi.Repository.IRepository;
@@ -10,11 +8,11 @@ namespace PartyApi.Repository;
 class MemberRepository(
     PartyContext context,
     ILogger logger
-    ) : Repository<Member>(
-            context,
-            logger
-        ), 
-        IMemberRepository
+) : Repository<Member>(
+        context,
+        logger
+    ), 
+    IMemberRepository
 {
     public async Task<Member?> GetByIdWithPartyAsync(int id)
     {

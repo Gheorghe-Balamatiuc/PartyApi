@@ -8,11 +8,11 @@ namespace PartyApi.Repository;
 class PartyRepository(
     PartyContext context,
     ILogger logger
-    ) : Repository<Party>(
-            context,
-            logger
-        ), 
-        IPartyRepository
+) : Repository<Party>(
+        context,
+        logger
+    ), 
+    IPartyRepository
 {
     public async Task<Party?> GetPartyWithMembersAsync(int id)
     {

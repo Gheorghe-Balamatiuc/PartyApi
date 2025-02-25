@@ -14,6 +14,8 @@ public class UnitOfWork(
     private IPartyRepository? partyRepository;
     private IMemberRepository? memberRepository;
 
+    private IUserRepository? userRepository;
+
     public IPartyRepository PartyRepository
     {
         get
@@ -35,6 +37,18 @@ public class UnitOfWork(
                 _logger
             );
             return memberRepository;
+        }
+    }
+
+    public IUserRepository UserRepository
+    {
+        get
+        {
+            userRepository ??= new UserRepository(
+                _context,
+                _logger
+            );
+            return userRepository;
         }
     }
 

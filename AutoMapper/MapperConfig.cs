@@ -15,5 +15,7 @@ public class MapperConfig : Profile
         CreateMap<Party, PartyDTO>();
         CreateMap<Party, PartyWithMembersDTO>();
         CreateMap<Party, PartyNoIdDTO>().ReverseMap();
+
+        CreateMap<User, UserNoIdDTO>().ReverseMap();
     }
 }

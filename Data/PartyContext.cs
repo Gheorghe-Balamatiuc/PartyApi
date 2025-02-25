@@ -16,4 +16,5 @@ public class PartyContext : DbContext
 
     public DbSet<Party> Parties { get; set; }
     public DbSet<Member> Members { get; set; }
+    public DbSet<User> Users { get; set; }
 }
