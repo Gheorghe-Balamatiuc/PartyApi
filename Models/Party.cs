@@ -10,7 +10,9 @@ public class Party
 
     public required string PartyName { get; set; }
 
-    public decimal Budget { get; set; }
+    public required decimal Budget { get; set; }
 
-    public ICollection<Member> Members { get; } = [];
+    public int? UserId { get; set; }
+
+    public ICollection<User> Members { get; } = [];
 }

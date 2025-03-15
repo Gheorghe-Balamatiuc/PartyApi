@@ -12,7 +12,6 @@ public class UnitOfWork(
     private readonly ILogger<UnitOfWork> _logger = logger;
 
     private IPartyRepository? partyRepository;
-    private IMemberRepository? memberRepository;
 
     private IUserRepository? userRepository;
 
@@ -25,18 +24,6 @@ public class UnitOfWork(
                 _logger
             );
             return partyRepository;
-        }
-    }
-
-    public IMemberRepository MemberRepository
-    {
-        get
-        {
-            memberRepository ??= new MemberRepository(
-                _context,
-                _logger
-            );
-            return memberRepository;
         }
     }
 

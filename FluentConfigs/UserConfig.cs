@@ -11,5 +11,11 @@ class UserConfig : IEntityTypeConfiguration<User>
         builder.HasKey(u => u.UserId);
         builder.Property(u => u.Auth0UserId).IsRequired();
         builder.Property(u => u.Email).IsRequired();
+
+        builder.HasMany(u => u.CreatedParties)
+            .WithOne()
+            .HasForeignKey(p => p.UserId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

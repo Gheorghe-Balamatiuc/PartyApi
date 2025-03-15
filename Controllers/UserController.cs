@@ -30,14 +30,16 @@ public class UserController(
             return NotFound();
         }
 
-        return Ok(users);
+        var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+
+        return Ok(usersDto);
     }
 
     [HttpGet("{id}")]
     [Authorize("read:data")]
     public async Task<IActionResult> GetUser(int id)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+        var user = await _unitOfWork.UserRepository.GetUserWithPartiesAsync(id);
 
         if (user == null)
         {
@@ -45,7 +47,9 @@ public class UserController(
             return NotFound();
         }
 
-        return Ok(user);
+        var userWithPartiesDTO = _mapper.Map<UserWithPartiesDTO>(user);
+
+        return Ok(userWithPartiesDTO);
     }
 
     [HttpPost]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyApi.Data;
 
@@ -11,9 +12,11 @@ using PartyApi.Data;
 namespace PartyApi.Migrations
 {
     [DbContext(typeof(PartyContext))]
-    partial class PartyContextModelSnapshot : ModelSnapshot
+    [Migration("20250315090804_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +41,7 @@ namespace PartyApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("PartyId");
@@ -87,8 +91,7 @@ namespace PartyApi.Migrations
                 {
                     b.HasOne("PartyApi.Models.User", null)
                         .WithMany("CreatedParties")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PartyUser", b =>

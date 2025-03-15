@@ -10,4 +10,8 @@ public class User {
     public required string Auth0UserId { get; set; }
 
     public required string Email { get; set; }
+
+    public ICollection<Party> CreatedParties { get; } = [];
+
+    public ICollection<Party> MemberParties { get; } = [];
 }

@@ -6,7 +6,9 @@ public class PartyWithMembersDTO
 
     public required string PartyName { get; set; }
 
-    public decimal Budget { get; set; }
+    public required decimal Budget { get; set; }
 
-    public IEnumerable<MemberDTO> Members { get; set; } = [];
+    public int? UserId { get; set; }
+
+    public ICollection<UserDTO> Members { get; } = [];
 }
